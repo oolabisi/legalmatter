@@ -1,5 +1,7 @@
 package legalmanagement.data.entity;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -16,26 +18,28 @@ public class Attorney {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long attorneyId;
 
-    @NotBlank
+   // @NotBlank
     @Column(name = "firstName")
     private String firstName;
 
-    @NotBlank
+  //  @NotBlank
     @Column(name = "lastName")
     private String lastName;
 
+  //  @NotBlank
     @Column(name = "otherName")
     private String otherName;
 
-    @NotBlank
+ //   @NotBlank
     @Column(name = "title")
     private String title;
 
-    @NotBlank
+ //   @NotBlank
     @Column(name = "username")
     private String username;
 
-    @NotBlank
+    @NaturalId
+ //   @NotBlank
     @Email
     @Column(name = "email")
     private String email;
@@ -44,28 +48,28 @@ public class Attorney {
     @Column(name = "password")
     private String password;
 
-    @NotBlank
+ //   @NotBlank
     @Column(name = "passwordConfirm")
     @Transient
     private String passwordConfirm;
 
-    @NotBlank
+ //   @NotBlank
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @NotBlank
+ //   @NotBlank
     @Column(name = "enrollmentNumber")
     private String enrollmentNumber;
 
-    @NotBlank
+ //   @NotBlank
     @Column(name = "enrollmentYear")
     private String enrollmentYear;
 
-    @NotBlank
+  //  @NotBlank
     @Column(name = "callToBarCertNumber")
      private String callToBarCertNumber;
 
-    @NotBlank
+  //  @NotBlank
     @Column(name = "nationality")
     private String nationality;
 
@@ -82,6 +86,11 @@ public class Attorney {
 // Class constructor
 
 public Attorney() { }
+
+
+public Attorney(String firstName, String lastName, String username, String email, String password, String title,
+                String otherName) {
+}
 
  public Attorney(String firstName, String lastName, String otherName, String title, String email, String password,
                     String phoneNumber, String enrollmentNumber, String enrollmentYear, String callToBarCertNumber,
@@ -101,12 +110,6 @@ public Attorney() { }
     this.nationality = nationality;
   //  this.enabled = enabled;
 }
-
-    public Attorney(String firstName, String lastName, String username, String email, String password, String title, String otherName) {
-    }
-//
-//    public Attorney(String username, String password, List<GrantedAuthority> grantList) {
-//    }
 
     // Setters and Getters of Class Attribute
 
