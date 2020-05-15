@@ -1,11 +1,14 @@
 package legalmanagement.data.entity;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.Email;
 //import javax.persistence.OneToMany;
 //import java.util.List;
 
@@ -24,6 +27,8 @@ public class LawFirm {
       @Column(name = "lawFirmName")
       private String lawFirmName;
 
+      @NaturalId
+      @Email
       @Column(name = "lawFirmEmail")
       private String lawFirmEmail;
 

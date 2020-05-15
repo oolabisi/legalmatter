@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/legalmatter")
+@RequestMapping("/legalmanagement")
 public class ClientCompanyController {
 
     private ClientCompanyRepository clientCompany;

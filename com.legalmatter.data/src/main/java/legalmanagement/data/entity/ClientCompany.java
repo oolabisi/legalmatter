@@ -1,8 +1,10 @@
 package legalmanagement.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 
 @Entity
@@ -20,6 +22,8 @@ public class ClientCompany {
     @Column(name = "companyAddress")
     private String companyAddress;
 
+    @NaturalId
+    @Email
     @Column(name = "companyEmail")
     private String companyEmail;
 

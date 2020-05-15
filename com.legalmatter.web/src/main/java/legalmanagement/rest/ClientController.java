@@ -8,7 +8,7 @@ import java.sql.ClientInfoStatus;
 import java.util.List;
 
 @RestController
-@RequestMapping("/legalmatter")
+@RequestMapping("/legalmanagement")
 public class ClientController {
     private ClientRepository clientService;
 
