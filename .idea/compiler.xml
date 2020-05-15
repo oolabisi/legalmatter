@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="com.legalmatter.web" />
+        <module name="com.legalmatter.data" />
+        <module name="com.legalmatter.service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="com.legalmatter.data" target="1.8" />
+      <module name="com.legalmatter.security" target="1.8" />
+      <module name="com.legalmatter.service" target="1.8" />
+      <module name="com.legalmatter.web" target="1.8" />
+      <module name="legalmatter" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="com.legalmatter.data" options="-parameters" />
+      <module name="com.legalmatter.security" options="-parameters" />
+      <module name="com.legalmatter.service" options="-parameters" />
+      <module name="com.legalmatter.web" options="-parameters" />
+    </option>
+  </component>
+</project>

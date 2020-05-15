@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.legalmatter.data/com.legalmatter.data.iml" filepath="$PROJECT_DIR$/com.legalmatter.data/com.legalmatter.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.legalmatter.service/com.legalmatter.service.iml" filepath="$PROJECT_DIR$/com.legalmatter.service/com.legalmatter.service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.legalmatter.web/com.legalmatter.web.iml" filepath="$PROJECT_DIR$/com.legalmatter.web/com.legalmatter.web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/legalmatter.iml" filepath="$PROJECT_DIR$/.idea/legalmatter.iml" />
+    </modules>
+  </component>
+</project>

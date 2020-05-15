@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,19 +17,19 @@ public class Attorney {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long attorneyId;
 
-   // @NotBlank
+     //@NotBlank
     @Column(name = "firstName")
     private String firstName;
 
-  //  @NotBlank
+    //@NotBlank
     @Column(name = "lastName")
     private String lastName;
 
-  //  @NotBlank
+    //@NotBlank
     @Column(name = "otherName")
     private String otherName;
 
- //   @NotBlank
+    //@NotBlank
     @Column(name = "title")
     private String title;
 
@@ -48,28 +47,28 @@ public class Attorney {
     @Column(name = "password")
     private String password;
 
- //   @NotBlank
+     //@NotBlank
     @Column(name = "passwordConfirm")
     @Transient
     private String passwordConfirm;
 
- //   @NotBlank
+    //@NotBlank
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
- //   @NotBlank
+     //@NotBlank
     @Column(name = "enrollmentNumber")
     private String enrollmentNumber;
 
- //   @NotBlank
+     //@NotBlank
     @Column(name = "enrollmentYear")
     private String enrollmentYear;
 
-  //  @NotBlank
+     //@NotBlank
     @Column(name = "callToBarCertNumber")
      private String callToBarCertNumber;
 
-  //  @NotBlank
+     //@NotBlank
     @Column(name = "nationality")
     private String nationality;
 
@@ -80,7 +79,7 @@ public class Attorney {
    // private LawFirm lawFirm;
     @JoinTable(name = "attorneyRoles", joinColumns = @JoinColumn(name = "attorneyId"),
             inverseJoinColumns = @JoinColumn(name = "roleId"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles; // = new HashSet<>();
 
 
 // Class constructor
@@ -113,7 +112,7 @@ public Attorney(String firstName, String lastName, String username, String email
 
     // Setters and Getters of Class Attribute
 
-public Long getAttorneyId() {
+public long getAttorneyId() {
        return attorneyId;
 }
 
