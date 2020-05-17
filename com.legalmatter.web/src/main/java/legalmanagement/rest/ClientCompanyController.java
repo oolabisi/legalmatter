@@ -5,6 +5,7 @@ import legalmanagement.data.entity.ClientCompany;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/legalmanagement")
@@ -27,9 +28,9 @@ public class ClientCompanyController {
     //exposing and returning an Client by its Id
 
     @GetMapping("/clientcompanies/{clientcompanyId}")
-    public ClientCompany getClientCompany(@PathVariable int clientCompanyId){
+    public Optional<ClientCompany> getClientCompany(@PathVariable Long clientCompanyId){
 
-        ClientCompany theClientCompany = clientCompany.findClientCompanyById(clientCompanyId);
+        Optional<ClientCompany> theClientCompany = clientCompany.findById(clientCompanyId);
 
         if (theClientCompany == null){
             throw new RuntimeException("ClientCompany id not found :" + clientCompanyId);
@@ -46,7 +47,7 @@ public class ClientCompanyController {
         // this is to force a save of new item instead of update)
 //        theClientCompany.setClientCompanyId(0);
 
-        clientCompany.saveClientCompany(theClientCompany);
+        clientCompany.save(theClientCompany);
 
         return theClientCompany;
     }
@@ -55,21 +56,21 @@ public class ClientCompanyController {
     @PutMapping("/clientCompanies")
     public ClientCompany updateClientCompany(@RequestBody ClientCompany theClientCompany){
 
-        clientCompany.saveClientCompany(theClientCompany);
+        clientCompany.save(theClientCompany);
 
         return theClientCompany;
     }
 
     // method to delete a Client
     @DeleteMapping("/clientCompany/{clientCompanyId}")
-    public String deleteClientCompany(@PathVariable int clientCompanyId){
-        ClientCompany tempClientCompany  = clientCompany.findClientCompanyById(clientCompanyId);
+    public String deleteClientCompany(@PathVariable Long clientCompanyId){
+        Optional<ClientCompany> tempClientCompany  = clientCompany.findById(clientCompanyId);
 
         //
         if (tempClientCompany == null){
             throw new RuntimeException("Client id not found : " + clientCompanyId);
         }
-        clientCompany.deleteClientCompanyById(clientCompanyId);
+        clientCompany.deleteById(clientCompanyId);
         return "Deleted clientCompany id " + clientCompanyId;
     }
 }

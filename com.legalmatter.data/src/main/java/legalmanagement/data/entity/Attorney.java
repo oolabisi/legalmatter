@@ -1,11 +1,13 @@
 package legalmanagement.data.entity;
 
 import org.hibernate.annotations.NaturalId;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -86,14 +88,14 @@ public class Attorney {
 
 public Attorney() { }
 
+public Attorney(String email, String password, Set grantedAuthorities) { }
 
-public Attorney(String firstName, String lastName, String username, String email, String password, String title,
-                String otherName) {
+public Attorney(String firstName, String lastName, String username, String email, String password, String title, String otherName) {
 }
 
- public Attorney(String firstName, String lastName, String otherName, String title, String email, String password,
+public Attorney(String firstName, String lastName, String otherName, String title, String email, String password,
                     String phoneNumber, String enrollmentNumber, String enrollmentYear, String callToBarCertNumber,
-                    String nationality, String username) { //Set<Role> roles
+                    String nationality, String username, String passwordConfirm) { //Set<Role> roles
     this.firstName = firstName;
     this.lastName = lastName;
     this.otherName = otherName;
@@ -110,7 +112,7 @@ public Attorney(String firstName, String lastName, String username, String email
   //  this.enabled = enabled;
 }
 
-    // Setters and Getters of Class Attribute
+      // Setters and Getters of Class Attribute
 
 public long getAttorneyId() {
        return attorneyId;
@@ -218,13 +220,14 @@ public String getPasswordConfirm() { return passwordConfirm; }
 
 public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
 
+public Set<Role> getRoles() { return roles; }
+
+public void setRoles(Set<Role> roles) { this.roles = roles; }
+
 //public boolean isEnabled() { return enabled; }
 //
 //public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
-public Set<Role> getRoles() { return roles; }
-
-public void setRoles(Set<Role> roles) { this.roles = roles; }
 
 
 // toString
@@ -251,5 +254,9 @@ public String toString() {
         //  sb.append(", roles=").append(roles);
     sb.append('}');
     return sb.toString();
+    }
+
+    public Collection<GrantedAuthority> getAuthorities() {
+        return null;
     }
 }

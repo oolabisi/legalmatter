@@ -1,16 +1,16 @@
 package legalmanagement.security;
 
+import legalmanagement.data.entity.Attorney;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
 public class WebUtils {
 
-    public static String toString(User user) {
+    public static String toString(Attorney user) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("UserName:").append(user.getUsername());
+        sb.append("Username:").append(user.getUsername());
 
         Collection<GrantedAuthority> authorities = user.getAuthorities();
         if (authorities != null && !authorities.isEmpty()) {

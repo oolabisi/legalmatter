@@ -87,16 +87,6 @@ INSERT into lawFirm VALUE
 
 
 
-DROP TABLE if exists roles;
-
-CREATE TABLE roles(
-`roleId` BIGINT(10) NOT NULL AUTO_INCREMENT,
-`name` VARCHAR(45) DEFAULT NULL,
-PRIMARY KEY (`roleId`)
-);
-
-
-
 DROP TABLE if exists attorney_roles;
 
 CREATE TABLE attorney_roles(
@@ -130,4 +120,13 @@ CREATE TABLE Persistent_Logins (
 `token` varchar(64) not null,
 `last_used` timestamp not null,
 PRIMARY KEY (series)
+);
+
+
+DROP TABLE if exists roles;
+
+CREATE TABLE roles(
+`roleId` BIGINT(10) NOT NULL AUTO_INCREMENT,
+`name` VARCHAR(45) DEFAULT NULL,
+PRIMARY KEY (`roleId`)
 );

@@ -4,8 +4,8 @@ import legalmanagement.data.Repository.ClientRepository;
 import legalmanagement.data.entity.Client;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.ClientInfoStatus;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/legalmanagement")
@@ -28,9 +28,9 @@ public class ClientController {
     //exposing and returning an Client by its Id
 
     @GetMapping("/clients/{clientId}")
-    public Client getClient(@PathVariable int clientId){
+    public Optional<Client> getClient(@PathVariable Long clientId){
 
-        Client theClient = clientService.findClientById(clientId);
+        Optional<Client> theClient = clientService.findById(clientId);
 
         if (theClient == null){
             throw new RuntimeException("Client id not found :" + clientId);
@@ -47,7 +47,7 @@ public class ClientController {
         // this is to force a save of new item instead of update)
 //        theClient.setClientId(0);
 
-        clientService.saveClient(theClient);
+        clientService.save(theClient);
 
         return theClient;
     }
@@ -56,21 +56,21 @@ public class ClientController {
     @PutMapping("/clients")
     public Client updateClient(@RequestBody Client theClient){
 
-        clientService.saveClient(theClient);
+        clientService.save(theClient);
 
         return theClient;
     }
 
     // method to delete a Client
     @DeleteMapping("/clients/{clientId}")
-    public String deleteClient(@PathVariable int clientId){
-        Client tempClient  = clientService.findClientById(clientId);
+    public String deleteClient(@PathVariable Long clientId){
+        Optional<Client> tempClient  = clientService.findById(clientId);
 
         // throw an exception...
         if (tempClient == null){
             throw new RuntimeException("Client id not found : " + clientId);
         }
-        clientService.deleteClientById(clientId);
+        clientService.deleteById(clientId);
         return "Deleted client id " + clientId;
     }
 }
