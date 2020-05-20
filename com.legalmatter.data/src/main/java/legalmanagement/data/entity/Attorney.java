@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import java.util.Collection;
 import java.util.Set;
@@ -16,247 +17,235 @@ import java.util.Set;
 public class Attorney {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long attorneyId;
 
-     //@NotBlank
-    @Column(name = "firstName")
     private String firstName;
 
-    //@NotBlank
-    @Column(name = "lastName")
     private String lastName;
 
-    //@NotBlank
-    @Column(name = "otherName")
     private String otherName;
 
-    //@NotBlank
-    @Column(name = "title")
     private String title;
 
- //   @NotBlank
-    @Column(name = "username")
     private String username;
 
     @NaturalId
- //   @NotBlank
-    @Email
-    @Column(name = "email")
+    @Email(message = "{errors.invalid_email}")
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotBlank
-    @Column(name = "password")
+    @Size(min = 8)
     private String password;
 
-     //@NotBlank
-    @Column(name = "passwordConfirm")
+    @Size(min = 8)
     @Transient
     private String passwordConfirm;
 
-    //@NotBlank
-    @Column(name = "phoneNumber")
     private String phoneNumber;
 
-     //@NotBlank
-    @Column(name = "enrollmentNumber")
     private String enrollmentNumber;
 
-     //@NotBlank
-    @Column(name = "enrollmentYear")
     private String enrollmentYear;
 
-     //@NotBlank
-    @Column(name = "callToBarCertNumber")
-     private String callToBarCertNumber;
+    private String callToBarCertNumber;
 
-     //@NotBlank
-    @Column(name = "nationality")
     private String nationality;
 
 //    @Column(name = "Enabled")
 //    private boolean enabled;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-   // private LawFirm lawFirm;
-    @JoinTable(name = "attorneyRoles", joinColumns = @JoinColumn(name = "attorneyId"),
-            inverseJoinColumns = @JoinColumn(name = "roleId"))
-    private Set<Role> roles; // = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.MERGE)    //(fetch = FetchType.LAZY)
+    @JoinTable(name = "attorney_roles", joinColumns = @JoinColumn(name = "attorney_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles; // = new HashSet<>(); private List<Role> role;
 
 
 // Class constructor
 
-public Attorney() { }
+    public Attorney() {
+    }
 
-public Attorney(String email, String password, Set grantedAuthorities) { }
+    public Attorney(String email, String password, Set grantedAuthorities) {
+    }
 
-public Attorney(String firstName, String lastName, String username, String email, String password, String title, String otherName) {
-}
+    public Attorney(String firstName, String lastName, String username, String email, String password, String title, String otherName) {
+    }
 
-public Attorney(String firstName, String lastName, String otherName, String title, String email, String password,
+    public Attorney(String firstName, String lastName, String otherName, String title, String email, String password,
                     String phoneNumber, String enrollmentNumber, String enrollmentYear, String callToBarCertNumber,
                     String nationality, String username, String passwordConfirm) { //Set<Role> roles
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.otherName = otherName;
-    this.username = username;
-    this.passwordConfirm = passwordConfirm;
-    this.title = title;
-    this.email = email;
-    this.password = password;
-    this.phoneNumber = phoneNumber;
-    this.enrollmentNumber = enrollmentNumber;
-    this.enrollmentYear = enrollmentYear;
-    this.callToBarCertNumber = callToBarCertNumber;
-    this.nationality = nationality;
-  //  this.enabled = enabled;
-}
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.otherName = otherName;
+        this.username = username;
+        this.passwordConfirm = passwordConfirm;
+        this.title = title;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.enrollmentNumber = enrollmentNumber;
+        this.enrollmentYear = enrollmentYear;
+        this.callToBarCertNumber = callToBarCertNumber;
+        this.nationality = nationality;
+        //  this.enabled = enabled;
+    }
 
-      // Setters and Getters of Class Attribute
+    public Collection<GrantedAuthority> getAuthorities() {
+        return null;
+    }
 
-public long getAttorneyId() {
-       return attorneyId;
-}
+    // Setters and Getters of Class Attribute
 
-public void setAttorneyId(Long attorneyId) {
-       this.attorneyId = attorneyId;
-}
+    public long getAttorneyId() {
+        return attorneyId;
+    }
 
-public String getFirstName() {
-       return firstName;
-}
+    public void setAttorneyId(Long attorneyId) {
+        this.attorneyId = attorneyId;
+    }
 
-public void setFirstName(String firstName) {
-       this.firstName = firstName;
-}
+    public String getFirstName() {
+        return firstName;
+    }
 
-public String getLastName() {
-       return lastName;
-}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-public void setLastName(String lastName) {
-       this.lastName = lastName;
-}
+    public String getLastName() {
+        return lastName;
+    }
 
-public String getOtherName() {
-       return otherName;
-}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-public void setOtherName(String otherName) {
-       this.otherName = otherName;
-}
+    public String getOtherName() {
+        return otherName;
+    }
 
-public String getTitle() {
-       return title;
-}
+    public void setOtherName(String otherName) {
+        this.otherName = otherName;
+    }
 
-public void setTitle(String title) {
-       this.title = title;
-}
+    public String getTitle() {
+        return title;
+    }
 
-public String getEmail() {
-       return email;
-}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-public void setEmail(String email) {
-       this.email = email;
-}
+    public String getEmail() {
+        return email;
+    }
 
-public String getPassword() {
-      return password;
-}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-public void setPassword(String password) {
-       this.password = password;
-}
+    public String getPassword() {
+        return password;
+    }
 
-public String getPhoneNumber() {
-       return phoneNumber;
-}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-public void setPhoneNumber(String phoneNumber) {
-       this.phoneNumber = phoneNumber;
-}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-public String getEnrollmentNumber() {
-       return enrollmentNumber;
-}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-public void setEnrollmentNumber(String enrollmentNumber) {
-       this.enrollmentNumber = enrollmentNumber;
-}
+    public String getEnrollmentNumber() {
+        return enrollmentNumber;
+    }
 
-public String getEnrollmentYear() {
-       return enrollmentYear;
-}
+    public void setEnrollmentNumber(String enrollmentNumber) {
+        this.enrollmentNumber = enrollmentNumber;
+    }
 
-public void setEnrollmentYear(String enrollmentYear) {
-       this.enrollmentYear = enrollmentYear;
-}
+    public String getEnrollmentYear() {
+        return enrollmentYear;
+    }
 
-public String getNationality() {
-       return nationality;
-}
+    public void setEnrollmentYear(String enrollmentYear) {
+        this.enrollmentYear = enrollmentYear;
+    }
 
-public void setNationality(String nationality) {
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
         this.nationality = nationality;
     }
 
-public String getUsername() { return username; }
-
-public void setUsername(String username) {
-    this.username = username;
+    public String getUsername() {
+        return username;
     }
 
-public String getCallToBarCertNumber() {
-    return callToBarCertNumber;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-public void setCallToBarCertNumber(String callToBarCertNumber) {
-    this.callToBarCertNumber = callToBarCertNumber;
+    public String getCallToBarCertNumber() {
+        return callToBarCertNumber;
     }
 
-public String getPasswordConfirm() { return passwordConfirm; }
+    public void setCallToBarCertNumber(String callToBarCertNumber) {
+        this.callToBarCertNumber = callToBarCertNumber;
+    }
 
-public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
 
-public Set<Role> getRoles() { return roles; }
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
 
-public void setRoles(Set<Role> roles) { this.roles = roles; }
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
 //public boolean isEnabled() { return enabled; }
 //
 //public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
 
-
 // toString
 
 
-@Override
-public String toString() {
-    final StringBuilder sb = new StringBuilder("Attorney{");
-    sb.append("attorneyId=").append(attorneyId);
-    sb.append(", firstName='").append(firstName).append('\'');
-    sb.append(", lastName='").append(lastName).append('\'');
-    sb.append(", otherName='").append(otherName).append('\'');
-    sb.append(", title='").append(title).append('\'');
-    sb.append(", email='").append(email).append('\'');
-    sb.append("passwordConfirm='").append(passwordConfirm).append('\'');
-    sb.append(", password='").append(password).append('\'');
-    sb.append(", phoneNumber='").append(phoneNumber).append('\'');
-    sb.append(", enrollmentNumber='").append(enrollmentNumber).append('\'');
-    sb.append(", enrollmentYear='").append(enrollmentYear).append('\'');
-    sb.append(", callToBarCertNumber='").append(callToBarCertNumber).append('\'');
-    sb.append(", nationality='").append(nationality).append('\'');
-    sb.append("username='").append(username).append('\'');
-  //  sb.append("enabled=").append(enabled);
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Attorney{");
+        sb.append("attorneyId=").append(attorneyId);
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", otherName='").append(otherName).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append("passwordConfirm='").append(passwordConfirm).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", phoneNumber='").append(phoneNumber).append('\'');
+        sb.append(", enrollmentNumber='").append(enrollmentNumber).append('\'');
+        sb.append(", enrollmentYear='").append(enrollmentYear).append('\'');
+        sb.append(", callToBarCertNumber='").append(callToBarCertNumber).append('\'');
+        sb.append(", nationality='").append(nationality).append('\'');
+        sb.append("username='").append(username).append('\'');
+        //  sb.append("enabled=").append(enabled);
         //  sb.append(", roles=").append(roles);
-    sb.append('}');
-    return sb.toString();
-    }
-
-    public Collection<GrantedAuthority> getAuthorities() {
-        return null;
+        sb.append('}');
+        return sb.toString();
     }
 }

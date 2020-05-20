@@ -9,8 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.Email;
-//import javax.persistence.OneToMany;
-//import java.util.List;
+
 
 @Entity
 @Table(name = "lawFirm")
@@ -19,38 +18,29 @@ public class LawFirm {
       @Id
       @Column
       @GeneratedValue(strategy= GenerationType.IDENTITY)
-      private long id;
+      private Long lawFirmId;
 
-      @Column(name = "lawFirmRegNumber")
       private int lawFirmRegNumber;
 
-      @Column(name = "lawFirmName")
       private String lawFirmName;
 
       @NaturalId
       @Email
-      @Column(name = "lawFirmEmail")
       private String lawFirmEmail;
 
-      @Column(name = "lawFirmPhoneNumber")
       private String lawFirmPhoneNumber;
 
-      @Column(name = "lawFirmAddress")
       private String lawFirmAddress;
 
-      @Column(name = "city")
       private String city;
 
-      @Column(name = "LGA")
       private String lga;
 
-      @Column(name = "state")
       private String state;
-
-
 
       //@OneToMany(mappedBy="lawFirm")
       //private List<Attorney> attorney;
+
 
       // Class Constructor
 
@@ -70,12 +60,12 @@ public class LawFirm {
 
       // Getters and Setters
 
-      public long getId() {
-            return id;
+      public Long getLawFirmId() {
+            return lawFirmId;
       }
 
-      public void setId(long id) {
-            this.id = id;
+      public void setLawFirmId(Long lawFirmId) {
+            this.lawFirmId = lawFirmId;
       }
 
       public int getLawFirmRegNumber() {
@@ -148,7 +138,7 @@ public class LawFirm {
       @Override
       public String toString() {
             final StringBuilder sb = new StringBuilder("legalFirm{");
-            sb.append("id=").append(id);
+            sb.append("id=").append(lawFirmId);
             sb.append(", firmRegNumber=").append(lawFirmRegNumber);
             sb.append(", firmName='").append(lawFirmName).append('\'');
             sb.append(", firmEmail='").append(lawFirmEmail).append('\'');

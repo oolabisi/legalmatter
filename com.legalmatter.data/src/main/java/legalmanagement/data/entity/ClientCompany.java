@@ -13,46 +13,34 @@ public class ClientCompany {
     @Id
     @Column
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long clientCompanyId;
 
-    @Column(name = "companyName")
     private String companyName;
 
-    @Column(name = "companyAddress")
     private String companyAddress;
 
     @NaturalId
     @Email
-    @Column(name = "companyEmail")
     private String companyEmail;
 
-    @Column(name = "companyPhoneNumber")
     private String companyPhoneNumber;
 
-    @Column(name = "city")
     private String city;
 
-    @Column(name = "LGA")
     private String lga;
 
-    @Column(name = "state")
     private String state;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Client client;
-
-//    @ManyToOne
-//    @JoinColumn(name = "")
-//    private Client client;
 
 
     // Class Constructor
 
     public ClientCompany() {}
 
-    public ClientCompany(String companyName, String companyAddress, String companyEmail,
-                         String companyPhoneNumber, String city, String lga, String state,
-                         Client client) {
+    public ClientCompany(String companyName, String companyAddress, String companyEmail, String companyPhoneNumber,
+                         String city, String lga, String state, Client client) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyEmail = companyEmail;
@@ -64,12 +52,12 @@ public class ClientCompany {
     }
 
     // Getters and Setters
-    public long getId() {
-        return id;
+    public Long getClientCompanyId() {
+        return clientCompanyId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setClientCompanyId(Long clientCompanyId) {
+        this.clientCompanyId = clientCompanyId;
     }
 
     public String getCompanyName() {
@@ -139,7 +127,7 @@ public class ClientCompany {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ClientCompany{");
-        sb.append("id=").append(id);
+        sb.append("id=").append(clientCompanyId);
         sb.append(", companyName='").append(companyName).append('\'');
         sb.append(", companyAddress='").append(companyAddress).append('\'');
         sb.append(", companyEmail='").append(companyEmail).append('\'');

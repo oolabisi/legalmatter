@@ -17,7 +17,7 @@ public class Client {
     @Id
     @Column
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long id;
+    private Long clientId;
 
     @NotBlank
     @Column(name= "firstName")
@@ -80,12 +80,12 @@ public class Client {
 
     // Getters and Setters
 
-    public long getId() {
-        return id;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public String getFirstName() {
@@ -157,7 +157,7 @@ public class Client {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Client{");
-        sb.append("id=").append(id);
+        sb.append("id=").append(clientId);
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", otherName='").append(otherName).append('\'');

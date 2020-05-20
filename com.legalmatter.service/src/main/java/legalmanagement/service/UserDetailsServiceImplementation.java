@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
+@Transactional
 public class UserDetailsServiceImplementation implements UserDetailsService {
 
   @Autowired
@@ -25,40 +26,39 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
   @Autowired
   private RoleRepository roleRepository;
 
-    @Override
-    @Transactional
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+  @Override
+  public User loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Attorney user = attorneyRepository.findByUsername(username);
+      Attorney user = attorneyRepository.findByEmailIgnoreCase(username);
 
-        if (user == null) {
-            System.out.println("User not found! " + username);
-            throw new UsernameNotFoundException("User " + username + " was not found in the database");
-        }
+      if (user == null) {
+          System.out.println("Email not found! " + username);
+          throw new UsernameNotFoundException("User " + username + " was not found in the database");
+      }
 
-        System.out.println("Found User: " + user);
+      System.out.println("Found User: " + user);
 
-        // [ROLE_USER, ROLE_ADMIN,..]
-//        List<String> roleNames = (List<String>) roleRepository.findByRoleId(user.getAttorneyId());
-//        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-//        if (roleNames != null) {
-//            for (String role : roleNames) {
-//                // ROLE_USER, ROLE_ADMIN,..
-//                GrantedAuthority authority = new SimpleGrantedAuthority(role);
-//                grantList.add(authority);
-//            }
-//        }
+      // [ROLE_USER, ROLE_ADMIN,..]
+//      List<String> roleNames = (List<String>) roleRepository.findByRoleId(user.getAttorneyId());
+//      List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+//      if (roleNames != null) {
+//          for (String role : roleNames) {
+//              // ROLE_USER, ROLE_ADMIN,..
+//              GrantedAuthority authority = new SimpleGrantedAuthority(role);
+//              grantList.add(authority);
+//          }
+//      }
 
-        Set grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
+      Set grantedAuthorities = new HashSet<>();
+      for (Role role : user.getRoles()){
+          grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+      }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                grantedAuthorities);
+     return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+              grantedAuthorities);
 
 //        UserDetails userDetails = (UserDetails) new Attorney(user.getUsername(), user.getPassword(), grantedAuthorities);
 //
-//        return (User) userDetails;
-    }
+//      return (User) userDetails;
+  }
 }
