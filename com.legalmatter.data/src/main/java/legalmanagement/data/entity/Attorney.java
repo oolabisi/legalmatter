@@ -57,8 +57,8 @@ public class Attorney {
 //    private boolean enabled;
 
     @ManyToMany(cascade = CascadeType.MERGE)    //(fetch = FetchType.LAZY)
-    @JoinTable(name = "attorney_roles", joinColumns = @JoinColumn(name = "attorney_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "attorney_roles", joinColumns = {@JoinColumn(name = "attorney_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles; // = new HashSet<>(); private List<Role> role;
 
 

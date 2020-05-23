@@ -12,11 +12,11 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="com.legalmatter.data" target="1.8" />
+      <module name="com.legalmatter.data" target="1.11" />
       <module name="com.legalmatter.security" target="1.8" />
-      <module name="com.legalmatter.service" target="1.8" />
-      <module name="com.legalmatter.web" target="1.8" />
-      <module name="legalmatter" target="1.8" />
+      <module name="com.legalmatter.service" target="1.11" />
+      <module name="com.legalmatter.web" target="1.11" />
+      <module name="legalmatter" target="1.11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
