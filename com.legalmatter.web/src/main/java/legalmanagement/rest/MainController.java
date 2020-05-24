@@ -23,89 +23,42 @@ public class MainController {
     @Autowired
     AttorneyRepository attorneyRepository;
 
-    @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
-    public String welcomePage(Model model) {
-        model.addAttribute("title", "Welcome To Legal Matters");
-        model.addAttribute( "message","You are welcome to Legal Matters We are here to Serve you!");
-        return "welcomePage";
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    public ModelAndView welcomePage(ModelAndView modelAndView) {
+        modelAndView.setViewName("welcome");
+        return modelAndView;
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String adminPage(Model model, Principal principal) {
-
-        Attorney loginedUser = (Attorney) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
-
-        return "adminPage";
+    // Return registration form template
+    @RequestMapping(value="/register", method = RequestMethod.GET)
+    public ModelAndView showRegistrationPage(ModelAndView modelAndView, Attorney user){
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("register");
+        return modelAndView;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(Model model) {
-
-        return "loginPage";
-    }
-
-    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-    public String logoutSuccessfulPage(Model model) {
-        model.addAttribute("title", "Logout");
-        return "logoutSuccessfulPage";
-    }
-
-    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-    public String userInfo(Model model, Principal principal) {
-
-        // After user login successfully.
-        String userName = principal.getName();
-
-        System.out.println("User Name: " + userName);
-
-        Attorney loginedUser = (Attorney) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
-
-        return "userInfoPage";
-    }
-
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public String accessDenied(Model model, Principal principal) {
-
-        if (principal != null) {
-            Attorney loginedUser = (Attorney) ((Authentication) principal).getPrincipal();
-
-            String userInfo = WebUtils.toString(loginedUser);
-
-            model.addAttribute("userInfo", userInfo);
-
-            String message = "Hi " + principal.getName() //
-                    + "<br> You do not have permission to access this page!";
-            model.addAttribute("message", message);
-
-        }
-
-        return "403Page";
-    }
-
-
-    @RequestMapping(value= {"/signup"}, method=RequestMethod.POST)
-    public ModelAndView createUser(@Valid Attorney user, BindingResult bindingResult) {
-        ModelAndView model = new ModelAndView();
+    @RequestMapping(value= {"/register"}, method= RequestMethod.POST)
+    public ModelAndView createUser(@Valid Attorney user, BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView();
         Attorney userExists = attorneyRepository.findByEmail(user.getEmail());
-
-        if(userExists != null) {
+        if(userExists != null){
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
         }
-        if(bindingResult.hasErrors()) {
-            model.setViewName("user/signup");
+        if(bindingResult.hasErrors()){
+            modelAndView.setViewName("attorney/register");
         } else {
             attorneyRepository.save(user);
-            model.addObject("msg", "User has been registered successfully!");
-            model.addObject("user", new Attorney());
-            model.setViewName("user/signup");
+            modelAndView.addObject("msg", "Name has been registered successfully!");
+            modelAndView.addObject("user", new Attorney());
+            modelAndView.setViewName("user/register");
         }
+        return modelAndView;
+    }
 
-        return model;
+    @RequestMapping(value= {"/login"}, method=RequestMethod.GET)
+    public ModelAndView login(ModelAndView modelAndView, Attorney user) {
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("login");
+        return modelAndView;
     }
 }
