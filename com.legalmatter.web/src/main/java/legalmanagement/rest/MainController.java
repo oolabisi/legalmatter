@@ -2,21 +2,16 @@ package legalmanagement.rest;
 
 import legalmanagement.data.Repository.AttorneyRepository;
 import legalmanagement.data.entity.Attorney;
-import legalmanagement.security.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
-//@RestController
+
 @Controller
 public class MainController {
 
@@ -31,15 +26,14 @@ public class MainController {
 
     // Return registration form template
     @RequestMapping(value="/register", method = RequestMethod.GET)
-    public ModelAndView showRegistrationPage(ModelAndView modelAndView, Attorney user){
+    public ModelAndView registrationPage(ModelAndView modelAndView, Attorney user){
         modelAndView.addObject("user", user);
         modelAndView.setViewName("register");
         return modelAndView;
     }
 
     @RequestMapping(value= {"/register"}, method= RequestMethod.POST)
-    public ModelAndView createUser(@Valid Attorney user, BindingResult bindingResult){
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView createUser(@Valid Attorney user, BindingResult bindingResult , ModelAndView modelAndView){
         Attorney userExists = attorneyRepository.findByEmail(user.getEmail());
         if(userExists != null){
             bindingResult.rejectValue("email", "error.user", "This email already exists!");
@@ -50,13 +44,13 @@ public class MainController {
             attorneyRepository.save(user);
             modelAndView.addObject("msg", "Name has been registered successfully!");
             modelAndView.addObject("user", new Attorney());
-            modelAndView.setViewName("user/register");
+            modelAndView.setViewName("register");
         }
         return modelAndView;
     }
 
     @RequestMapping(value= {"/login"}, method=RequestMethod.GET)
-    public ModelAndView login(ModelAndView modelAndView, Attorney user) {
+    public ModelAndView loginPage(ModelAndView modelAndView, Attorney user) {
         modelAndView.addObject("user", user);
         modelAndView.setViewName("login");
         return modelAndView;

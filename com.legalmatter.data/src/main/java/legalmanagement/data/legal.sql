@@ -104,7 +104,7 @@ PRIMARY KEY(`id`)
 
 insert into attorney_roles value
 (1,1,1),
-(2,1,2);
+(2,1,4);
 
 
 #alter table attorney_roles

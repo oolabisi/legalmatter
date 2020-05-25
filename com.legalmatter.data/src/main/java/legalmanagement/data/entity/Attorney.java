@@ -53,7 +53,6 @@ public class Attorney {
 
     private String nationality;
 
-//    @Column(name = "Enabled")
 //    private boolean enabled;
 
     @ManyToMany(cascade = CascadeType.MERGE)    //(fetch = FetchType.LAZY)
@@ -89,7 +88,7 @@ public class Attorney {
         this.enrollmentYear = enrollmentYear;
         this.callToBarCertNumber = callToBarCertNumber;
         this.nationality = nationality;
-        //  this.enabled = enabled;
+        //this.enabled = enabled;
     }
 
     public Collection<GrantedAuthority> getAuthorities() {
@@ -98,7 +97,7 @@ public class Attorney {
 
     // Setters and Getters of Class Attribute
 
-    public long getAttorneyId() {
+    public Long getAttorneyId() {
         return attorneyId;
     }
 
