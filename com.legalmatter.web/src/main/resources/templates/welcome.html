@@ -20,16 +20,53 @@
 
 <body class="gray-bg">
 
-        <div class="middle-box text-center loginscreen animated fadeInDown">
-                    <div>
+    <div class="container">
 
-                        <h4>Legal Matters</h4>
-                        <br>
-                        <h4>You are welcome to Legal Matters, We are here to Serve you right!</h4>
+        <div class="row">
 
+            <div class="col-md-10 middle-box navbar-header inline text-center animated">
 
-                    </div>
+               <div class="col-md-3">
+                   <h3> <a class="navbar-brand" href="#" th:href="@{/}">Legal Matters and Issues</a> </h3>
+               </div>
+
+               <div class="col-md-2">
+                      <a th:href="@{/}">Home</a>
+               </div>
+
+               <div authorize="isAnonymous()" class="col-md-2">
+                    <a th:href="@{/login}">Login</a>
+               </div>
+
+               <div class="col-md-2">
+                     <a th:href="@{/register}">SignUp</a>
+               </div>
+
+               <div authorize="isAuthenticated()" class="col-md-2">
+                    <a th:href="@{/logout}">Logout</a>
+               </div>
+
+            </div>
+
         </div>
+
+        <div class="row">
+
+               <div class="middle-box text-center loginscreen animated fadeInDown">
+
+                    <br>
+                        <h5>You are welcome to Legal Matters, We are here to Serve you right!</h5>
+        <!--    <p>  <a th:href="@{/logout}">Logout</a>    </p>-->
+
+                           <i class="icon fa fa-info"></i>
+
+                   <span th:text="#{info.logout_success}">You have been logged out.</span>
+
+               </div>
+
+        </div>
+
+    </div>
 
 </body>
 

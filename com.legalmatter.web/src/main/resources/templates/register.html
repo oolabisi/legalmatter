@@ -68,7 +68,8 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+<!--                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>-->
                         <input autofocus class="form-control" id="email" placeholder="userchoiceinfo@example.com"
                                required th:field="*{email}" type="text">
                     </div>
@@ -101,13 +102,39 @@
               </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <button class="btn btn-success" type="submit"><i class="fa fa-user-plus"></i> Register</button>
-            </div>
+
+       <!-- <div class="row">
+
+                <div class="col-md-6 form-group">
+&lt;!&ndash;                     th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">&ndash;&gt;
+                    <input id="terms" type="checkbox" th:field="*{terms}" />
+                    <label
+                      class="control-label" for="terms"> I agree with the <a href="#">terms and conditions</a> for Registration.
+                    </label>
+                </div>
+
+              <div class="col-md-3"></div>
+
         </div>
+-->
+        <div class="row">
+
+            <div class="col-md-3"></div>
+
+            <div class="col-md-6">
+
+                <button class="btn btn-success" type="submit"><i class="fa fa-user-plus"></i> Register</button>
+
+                <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
+
+            </div>
+
+        </div>
+
     </form>
+
 </div>
+
 </body>
+
 </html>
