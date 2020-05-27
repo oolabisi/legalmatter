@@ -40,7 +40,10 @@
 
                     <div class="col-md-8">
 
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <div> <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </span> </div>
+<!--                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>-->
                         <label class="sr-only" for="email">Email</label>
                             <input autofocus class="form-control" id="email" name="email" placeholder="Email"
                                 required type="email">
@@ -78,7 +81,7 @@
         <div class="col-md-6">
 
                 <div class="margin-top20 text-center">
-                    Don't have an account? <a th:href="@{/register}">Create an account</a>
+                    Don't have an account? <a th:href="@{/registration}">Create an account</a>
                 </div>
         </div>
 

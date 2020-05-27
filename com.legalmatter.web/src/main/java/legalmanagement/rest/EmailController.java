@@ -1,10 +1,7 @@
+/*
 package legalmanagement.rest;
 
 import legalmanagement.data.Repository.AttorneyRepository;
-import legalmanagement.data.Repository.ConfirmationTokenRepository;
-import legalmanagement.data.entity.Attorney;
-import legalmanagement.data.entity.ConfirmationToken;
-import legalmanagement.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,3 +84,4 @@ public class EmailController {
         return modelAndView;
     }
 }
+*/

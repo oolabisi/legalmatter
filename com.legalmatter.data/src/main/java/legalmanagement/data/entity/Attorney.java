@@ -39,10 +39,6 @@ public class Attorney {
     @Size(min = 8)
     private String password;
 
-    @Size(min = 8)
-    @Transient
-    private String passwordConfirm;
-
     private String phoneNumber;
 
     private String enrollmentNumber;
@@ -53,7 +49,9 @@ public class Attorney {
 
     private String nationality;
 
-//    private boolean enabled;
+    private boolean enabled;
+
+    private String  confirmationToken;
 
     @ManyToMany(cascade = CascadeType.MERGE)    //(fetch = FetchType.LAZY)
     @JoinTable(name = "attorney_roles", joinColumns = {@JoinColumn(name = "attorney_id")},
@@ -66,20 +64,17 @@ public class Attorney {
     public Attorney() {
     }
 
-    public Attorney(String email, String password, Set grantedAuthorities) {
-    }
-
-    public Attorney(String firstName, String lastName, String username, String email, String password, String title, String otherName) {
-    }
+    public Attorney(String email, String password, Set grantedAuthorities) { }
+    public Attorney(String firstName, String lastName, String username, String email, String password, String title,
+                    String otherName) {  }
 
     public Attorney(String firstName, String lastName, String otherName, String title, String email, String password,
                     String phoneNumber, String enrollmentNumber, String enrollmentYear, String callToBarCertNumber,
-                    String nationality, String username, String passwordConfirm) { //Set<Role> roles
+                    String nationality, String username, String confirmationToken, boolean enabled) { //Set<Role> roles
         this.firstName = firstName;
         this.lastName = lastName;
         this.otherName = otherName;
         this.username = username;
-        this.passwordConfirm = passwordConfirm;
         this.title = title;
         this.email = email;
         this.password = password;
@@ -88,7 +83,8 @@ public class Attorney {
         this.enrollmentYear = enrollmentYear;
         this.callToBarCertNumber = callToBarCertNumber;
         this.nationality = nationality;
-        //this.enabled = enabled;
+        this.enabled = enabled;
+        this.confirmationToken = confirmationToken;
     }
 
     public Collection<GrantedAuthority> getAuthorities() {
@@ -197,17 +193,7 @@ public class Attorney {
         return callToBarCertNumber;
     }
 
-    public void setCallToBarCertNumber(String callToBarCertNumber) {
-        this.callToBarCertNumber = callToBarCertNumber;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
+    public void setCallToBarCertNumber(String callToBarCertNumber) { this.callToBarCertNumber = callToBarCertNumber;}
 
     public Set<Role> getRoles() {
         return roles;
@@ -217,12 +203,15 @@ public class Attorney {
         this.roles = roles;
     }
 
-//public boolean isEnabled() { return enabled; }
-//
-//public void setEnabled(boolean enabled) { this.enabled = enabled; }
+    public boolean isEnabled() { return enabled; }
 
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
-// toString
+    public String getConfirmationToken() { return confirmationToken; }
+
+    public void setConfirmationToken(String confirmationToken) { this.confirmationToken = confirmationToken; }
+
+    // toString
 
 
     @Override
@@ -234,7 +223,7 @@ public class Attorney {
         sb.append(", otherName='").append(otherName).append('\'');
         sb.append(", title='").append(title).append('\'');
         sb.append(", email='").append(email).append('\'');
-        sb.append("passwordConfirm='").append(passwordConfirm).append('\'');
+        sb.append("confirmationToken='").append(confirmationToken).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append(", enrollmentNumber='").append(enrollmentNumber).append('\'');
@@ -242,8 +231,8 @@ public class Attorney {
         sb.append(", callToBarCertNumber='").append(callToBarCertNumber).append('\'');
         sb.append(", nationality='").append(nationality).append('\'');
         sb.append("username='").append(username).append('\'');
-        //  sb.append("enabled=").append(enabled);
-        //  sb.append(", roles=").append(roles);
+        sb.append("enabled=").append(enabled);
+        sb.append(", roles=").append(roles);
         sb.append('}');
         return sb.toString();
     }
