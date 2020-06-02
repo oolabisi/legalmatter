@@ -22,49 +22,53 @@
 
     <div class="container">
 
-        <div class="row">
+            <div class="row">
 
-            <div class="col-md-10 middle-box navbar-header inline text-center animated">
+                    <div class="col-md-10 middle-box navbar-header inline text-center animated">
 
-               <div class="col-md-3">
-                   <h3> <a class="navbar-brand" href="#" th:href="@{/}">Legal Matters and Issues</a> </h3>
-               </div>
+                           <h3> <a class="navbar-brand" href="#" th:href="@{/}">Legal Matters and Issues</a> </h3>
 
-               <div class="col-md-2">
-                      <a th:href="@{/}">Home</a>
-               </div>
-
-               <div authorize="isAnonymous()" class="col-md-2">
-                    <a th:href="@{/login}">Login</a>
-               </div>
-
-               <div class="col-md-2">
-                     <a th:href="@{/registration}">SignUp</a>
-               </div>
-
-               <div authorize="isAuthenticated()" class="col-md-2">
-                    <a th:href="@{/logout}">Logout</a>
-               </div>
+                    </div>
 
             </div>
 
-        </div>
+            <div class="row">
 
-        <div class="row">
+                   <div>
+                       <a class="col-md-2" th:href="@{/}">Home</a>
 
-               <div class="middle-box text-center loginscreen animated fadeInDown">
+                       <a authorize="isAnonymous()" class="col-md-4"  th:href="@{/login}">Login</a>
 
-                    <br>
-                        <h5>You are welcome to Legal Matters, We are here to Serve you right!</h5>
-        <!--    <p>  <a th:href="@{/logout}">Logout</a>    </p>-->
+                       <a class="col-md-4" th:href="@{/registration}">SignUp</a>
 
-                           <i class="icon fa fa-info"></i>
+                       <a authorize="isAuthenticated()" class="col-md-4" th:href="@{/logout}">Logout</a>
 
-                   <span th:text="#{info.logout_success}">You have been logged out.</span>
+                   </div>
 
-               </div>
+            </div>
 
-        </div>
+            <div class="row">
+
+                   <div class="middle-box text-center loginscreen animated fadeInDown">
+
+                        <br>
+
+                            <h4>Hi <span th:utext="${firstName}"></span>, this is the home page.</h4>
+
+                       <br>
+
+                             <h6>You are welcome to Legal Matters, We are here to Serve you right!</h6>
+
+                        <br>
+
+
+                       <i class="icon fa fa-info"></i>
+
+                       <span th:text="#{info.logout_success}">You have been logged out.</span>
+
+                   </div>
+
+            </div>
 
     </div>
 

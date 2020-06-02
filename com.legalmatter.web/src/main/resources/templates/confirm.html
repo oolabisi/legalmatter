@@ -2,80 +2,119 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <meta charset="utf-8" />
-    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Account registration" name="description" />
-    <link href="favicon.icon" rel="icon" />
+            <meta charset="utf-8" />
+            <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+            <meta content="width=device-width, initial-scale=1" name="viewport" />
+            <meta content="Account registration" name="description" />
+            <link href="favicon.icon" rel="icon" />
 
-         <title>LegalMatters</title>
+            <title>LegalMatters</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css"
-          rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
+          <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css"
+                rel="stylesheet">
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+          <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+                <!-- Bootstrap Validator plugin -->
+          <script src="//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+          <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 
 <body class="gray-bg">
 
-    <div class="container">
+    <div class=" container middle-box text-center loginscreen animated fadeInDown">
 
-            <div class="middle-box text-center loginscreen animated fadeInDown">
+            <hr />
 
-                <div>
-                    <hr />
-                    <h4>Set Your Password</h4>
+                         <h4>Set Your Password</h4>
 
-                    <div class="alert alert-success" role="alert"
-                         th:if="${successMessage}" th:text=${successMessage}></div>
+        <div class="row">
 
-                    <div class="alert alert-danger" role="alert"
-                         th:if="${errorMessage}" th:text=${errorMessage}></div>
+            <div class="col-md-3"></div>
 
-                    <div class="alert alert-danger" role="alert"
-                         th:if="${invalidToken}" th:text=${invalidToken}></div>
+            <div class="col-md-6">
 
-                    <form action="#" class="m-t" id="passwordForm" method="post" role="form"
-                          th:action="@{/confirm}" th:if="!${invalidToken}" th:object="${setPassword}">
+                <div class="alert alert-success" role="alert" th:if="${successMessage}" th:text=${successMessage}></div>
 
-                        <input name="token" th:value=${confirmationToken} type="hidden"  >
+                <div class="alert alert-danger" role="alert" th:if="${errorMessage}" th:text=${errorMessage}></div>
 
-                        <div class="form-group input-group">
-                      <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-lock"></span>
-                      </span>
-                            <input class="form-control" id="password" name="password"
-                                   placeholder="Password" required type="password" />
-                            <span aria-hidden="true" class="glyphicon"></span>
-                        </div>
-
-                        <div class="form-group input-group has-feedback">
-                      <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-lock"></span>
-                      </span>
-                            <input class="form-control" data-fv-identical="true" data-fv-identical-field="password"
-                                   data-fv-identical-message="Both passwords must be identical" data-fv-notempty="true" data-fv-notempty-message="Please confirm password"
-                                   id="signup-password-confirm"
-                                   name="ConfirmPassword"
-                                   placeholder="Confirm Password"
-                                   type="password" />
-
-                            <div class="help-block with-errors"></div>
-                        </div>
-
-                        <button class="btn btn-primary block full-width m-b"
-                                type="submit">Save
-                        </button>
-
-                    </form>
-
-                </div>
+                <div class="alert alert-danger" role="alert" th:if="${invalidToken}" th:text=${invalidToken}></div>
 
             </div>
+
+        </div>
+
+      <form action="#" class="m-t" id="passwordForm" method="post" role="form" th:action="@{/confirm}"
+            th:if="!${invalidToken}" th:object="${setPassword}">
+
+                <input name="token" th:value=${verificationToken} type="hidden">
+
+          <div class="row">
+
+              <div class="col-md-3"></div>
+
+              <div class="col-md-6">
+
+                    <div class="form-group input-group">
+
+                          <span class="input-group-addon">
+                                 <span class="glyphicon glyphicon-lock"></span>
+                          </span>
+
+                            <input class="form-control" id="password" name="password" placeholder="Password"
+                                   required type="password" />
+
+                            <span aria-hidden="true" class="glyphicon"></span>
+
+                    </div>
+
+              </div>
+
+          </div>
+
+          <div class="row">
+
+              <div class="col-md-3"></div>
+
+              <div class="col-md-6">
+
+                    <div class="form-group input-group has-feedback">
+
+                          <span class="input-group-addon">
+                                 <span class="glyphicon glyphicon-lock"></span>
+                          </span>
+
+                             <input class="form-control" data-fv-identical="true" data-fv-identical-field="password"
+                                data-fv-identical-message="Both passwords must be identical" data-fv-notempty="true" data-fv-notempty-message="Please confirm password"
+                                id="signup-password-confirm" name="ConfirmPassword"
+                                placeholder="Confirm Password"
+                                type="password" />
+
+                          <div class="help-block with-errors"></div>
+
+                    </div>
+
+              </div>
+
+          </div>
+
+          <div class="row">
+
+              <div class="col-md-1"></div>
+
+              <div class="col-md-8">
+
+                <button class="btn btn-primary block full-width m-b" type="submit">Save </button>
+
+              </div>
+
+          </div>
+
+      </form>
+
 
     </div>
 
 </body>
+
 </html>

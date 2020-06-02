@@ -1,3 +1,3 @@
-CREATE USER 'districtO' @ 'localhost' IDENTIFIED BY '0gund@iro';
+CREATE USER 'DistrictO' @ 'localhost' IDENTIFIED BY '0gund@iro';
 
-GRANT ALL PRIVILEGES ON *.* TO 'districtO' @ 'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'DistrictO' @ 'locahost';

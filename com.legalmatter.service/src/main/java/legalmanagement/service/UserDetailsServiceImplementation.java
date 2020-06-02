@@ -3,12 +3,14 @@ package legalmanagement.service;
 import legalmanagement.data.Repository.AttorneyRepository;
 import legalmanagement.data.Repository.RoleRepository;
 import legalmanagement.data.entity.Attorney;
+import legalmanagement.data.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +22,9 @@ import java.util.*;
 public class UserDetailsServiceImplementation implements UserDetailsService {
 
   @Autowired
-  private AttorneyRepository attorneyRepository;
-
-  @Autowired
-  private RoleRepository roleRepository;
+  AttorneyRepository attorneyRepository;
+  RoleRepository roleRepository;
+  BCryptPasswordEncoder passwordEncoder;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -54,6 +55,15 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
       return userDetails;
   }
+
+  public void save(Attorney user){
+      user.setPassword(passwordEncoder.encode(user.getPassword()));
+      user.setEnabled(true);
+      Role userRole = roleRepository.findByName("ADMIN");
+      user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+      attorneyRepository.save(user);
+  }
+
 }
 
 

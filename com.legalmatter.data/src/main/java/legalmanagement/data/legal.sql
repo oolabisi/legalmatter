@@ -14,7 +14,7 @@ CREATE TABLE attorney (
 `username` VARCHAR(45) DEFAULT NULL,
 `title` VARCHAR(45) DEFAULT NULL,
 `email` VARCHAR(45) DEFAULT NULL,
-`password` VARCHAR(45) DEFAULT NULL,
+`password` VARCHAR(100) DEFAULT NULL,
 `phone_number` VARCHAR(45) DEFAULT NULL,
 `enrollment_number` VARCHAR(45) DEFAULT NULL,
 `enrollment_year` VARCHAR(45) DEFAULT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE client (
 `other_name` VARCHAR(45) DEFAULT NULL,
 `username` VARCHAR(45) DEFAULT NULL,
 `email` VARCHAR(45) DEFAULT NULL,
-`password` VARCHAR(45) DEFAULT NULL,
+`password` VARCHAR(100) DEFAULT NULL,
 `phone_number` VARCHAR(45) DEFAULT NULL,
 `nationality` VARCHAR(45) DEFAULT NULL,
 PRIMARY KEY (`client_id`)
