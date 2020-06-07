@@ -1,12 +1,10 @@
+/*
 package legalmanagement.rest;
 
-import legalmanagement.data.Repository.AttorneyRepository;
 import legalmanagement.data.Repository.ClientRepository;
-import legalmanagement.data.entity.Attorney;
 import legalmanagement.data.entity.Client;
 import legalmanagement.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,22 +16,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Optional;
 import java.util.UUID;
 
 
 @Controller
-public class MainController {
+public class MainClient {
 
     @Autowired
-    AttorneyRepository attorneyRepository;
+    ClientRepository clientRepository;
     BCryptPasswordEncoder passwordEncoder;
     EmailService emailService;
 
 
 // ================================== HOME Template ===========================================================
 
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public ModelAndView welcomePage(ModelAndView modelAndView) {
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    public ModelAndView welcome(ModelAndView modelAndView) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         modelAndView.setViewName("welcome");
         return modelAndView;
@@ -42,28 +41,29 @@ public class MainController {
 // ================================== REGISTRATION Template ===========================================================
 
 
-    // for ATTORNEY
+    // for CLIENT
     @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
-    public ModelAndView registrationPage(ModelAndView modelAndView, Attorney user) {
-       modelAndView.setViewName("registration");
+    public ModelAndView registration(ModelAndView modelAndView, Client user) {
+        // modelAndView.addObject("user", user);
+        modelAndView.setViewName("registration");
         return modelAndView;
     }
 
     // Process input data form
-    @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
-    public ModelAndView processRegistration(ModelAndView modelAndView, @Valid Attorney user, BindingResult result,
-                                                HttpServletRequest request) {
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ModelAndView process(ModelAndView modelAndView, @Valid Client user, BindingResult result,
+                                            HttpServletRequest request) {
 
         // Lookup user in database by e-mail
-        Attorney userExists = attorneyRepository.findByEmail(user.getEmail());
+        Optional<Client> userExists = clientRepository.findByEmail(user.getEmail());
 
         System.out.println(userExists);
 
         if (userExists != null) {
             modelAndView.addObject("alreadyRegisteredMessage",
                     "There is already a user registered with the email provided.");
-            result.reject("email");
             modelAndView.setViewName("registration");
+            result.reject("email");
         }
 
         if (!result.hasErrors()) {
@@ -76,12 +76,13 @@ public class MainController {
             user.setEnabled(true);
 
             // Save user
-            attorneyRepository.save(user);
+            clientRepository.save(user);
 
             // Generate random 36-character string token for confirmation link
             user.setVerificationToken(UUID.randomUUID().toString());
 
-            /*String appUrl = request.getScheme() + "://" + request.getServerName();
+            */
+/*String appUrl = request.getScheme() + "://" + request.getServerName();
 
             SimpleMailMessage registrationEmail = new SimpleMailMessage();
             registrationEmail.setTo(user.getEmail());
@@ -94,14 +95,16 @@ public class MainController {
 
             modelAndView.addObject("confirmationMessage",
                     "A confirmation e-mail has been sent to " + user.getEmail());
-        */
+        *//*
+
         }
         modelAndView.addObject("successMessage", "Your password has been set!");
 
-        modelAndView.setViewName("redirect:/welcome");
+        modelAndView.setViewName("/");
 
         return modelAndView;
     }
+*/
 /*
 
     // Process confirmation link
@@ -144,48 +147,27 @@ public class MainController {
         modelAndView.addObject("successMessage", "Your password has been set!");
         return modelAndView;
     }
-*/
+*//*
 
-// ==================================== LOGIN Template ================================================================
-    //  for ATTORNEY
 
-   /* @RequestMapping(value = {"/attorney"},method = RequestMethod.GET)
-    public ModelAndView attorneyPage (ModelAndView modelAndView){
-        return new ModelAndView("attorney_login");
-    }*/
+    // ==================================== LOGIN Template ================================================================
+    //  for CLIENT
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    public ModelAndView login(ModelAndView model, String logout) {
+        // modelAndView.addObject("user", user);
 
-    @RequestMapping(value = {"/login_attorney"}, method = RequestMethod.GET)
-    public ModelAndView loginPage(ModelAndView modelAndView, Attorney user, String logout) {
-        //modelAndView.addObject("user", user);
+       */
+/* if (user == null)
 
-        if (user == null)
             modelAndView.addObject("error", "Your username and password are invalid.");
+*//*
+
         if (logout != null)
-            modelAndView.addObject("msg", "You have been logged out successfully.");
+            model.addObject("msg", "You have been logged out successfully.");
 
-        modelAndView.setViewName("login_attorney");
+        model.setViewName("login");
 
-        return modelAndView;
-    }
-
-
-    // for CLIENT
-    @RequestMapping(value = {"/client"},method = RequestMethod.GET)
-    public ModelAndView clientPage (ModelAndView modelAndView){
-        return new ModelAndView("client_login");
-    }
-
-    @RequestMapping(value = {"/login_client"}, method = RequestMethod.GET)
-    public ModelAndView loginPage(ModelAndView modelAndView, Client user, String logout) {
-        //modelAndView.addObject("user", user);
-
-        if (user == null)
-            modelAndView.addObject("error", "Your username and password are invalid.");
-        if (logout != null)
-            modelAndView.addObject("msg", "You have been logged out successfully.");
-
-        modelAndView.setViewName("login_client");
-
-        return modelAndView;
+        return model;
     }
 }
+*/

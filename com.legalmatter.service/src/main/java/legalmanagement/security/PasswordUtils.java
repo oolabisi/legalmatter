@@ -1,3 +1,4 @@
+/*
 package legalmanagement.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,3 +18,4 @@ public class PasswordUtils {
         System.out.println("Encryted Password: " + encrytedPassword);
     }
 }
+*/

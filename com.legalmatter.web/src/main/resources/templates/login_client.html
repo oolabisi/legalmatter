@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Account login" name="description" />
+
+    <title>LegalMatters</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" id="bootstrap-css"
+          rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+                .footer {
+                    position: fixed;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    background-color: blue;
+                    color: white;
+                    height: 50px;
+                    text-align: center;
+                }
+</style>
+</head>
+
+<body class="gray-bg">
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-3"></div>
+
+        <div class="col-md-4 alert alert-danger" role="alert" th:if="${param.error}">
+            The email or password is incorrect!
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="alert alert-info alert-dismissable" th:if="${param.logout}">
+
+                <p>
+                    <i class="icon fa fa-info"></i>
+                    <span th:text="#{info.logout_success}">You have been logged out.</span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <form>
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div method="post" th:action="@{/login_client}" th:object="${user}" >
+
+                    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+
+                    <div class="col-md-8">
+
+                        <div> <span class="input-group-addon">
+<!--                            <span class="glyphicon glyphicon-envelope"></span>-->
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </span> </div>
+                        <!--                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>-->
+                        <label class="sr-only" for="email">Email</label>
+                        <input autofocus class="form-control" id="email" name="email" placeholder="Email"
+                               required type="email">
+
+                    </div>
+
+                    <div class="col-md-8">
+
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                        <label class="sr-only" for="password">Password</label>
+                        <input class="form-control" id="password" name="password" placeholder="Password"
+                               required type="password">
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="checkbox mb-3">
+                            <label> <input name="remember-me" type="checkbox" /> Remember me </label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <button class="btn btn-md btn-primary btn-block" type="submit">Sign in</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="margin-top20 text-center">
+                    Don't have an account? <a th:href="@{/registration}">Create an account</a>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+    <div class="footer animated">LEGAL MATTERS</div>
+
+</div>
+
+</body>
+</html>

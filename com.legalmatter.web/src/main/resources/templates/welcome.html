@@ -15,12 +15,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+                .footer {
+                    position: fixed;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    background-color: blue;
+                    color: white;
+                    height: 50px;
+                    text-align: center;
+                }
+</style>
 
 </head>
 
 <body class="gray-bg">
 
-    <div class="container">
+    <div class="container-fluid">
 
             <div class="row">
 
@@ -37,7 +49,9 @@
                    <div>
                        <a class="col-md-2" th:href="@{/}">Home</a>
 
-                       <a authorize="isAnonymous()" class="col-md-4"  th:href="@{/login}">Login</a>
+                       <a authorize="isAnonymous()" class="col-md-4"  th:href="@{/login_attorney}">LoginA</a>
+
+                       <a authorize="isAnonymous()" class="col-md-4"  th:href="@{/login_client}">LoginC</a>
 
                        <a class="col-md-4" th:href="@{/registration}">SignUp</a>
 
@@ -69,6 +83,9 @@
                    </div>
 
             </div>
+
+        <div class="footer animated">LEGAL MATTERS</div>
+
 
     </div>
 

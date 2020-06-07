@@ -1,8 +1,13 @@
 package legalmanagement.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+
 import javax.validation.constraints.Email;
 
 
@@ -11,13 +16,14 @@ import javax.validation.constraints.Email;
 public class ClientCompany {
 
     @Id
-    @Column
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long clientCompanyId;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
 
     private String companyName;
 
     private String companyAddress;
+
+    private String companyRegNumber;
 
     @NaturalId
     @Email
@@ -32,6 +38,9 @@ public class ClientCompany {
     private String state;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    //@JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
 
@@ -40,10 +49,11 @@ public class ClientCompany {
     public ClientCompany() {}
 
     public ClientCompany(String companyName, String companyAddress, String companyEmail, String companyPhoneNumber,
-                         String city, String lga, String state, Client client) {
+                         String city, String companyRegNumber, String lga, String state, Client client) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyEmail = companyEmail;
+        this.companyRegNumber = companyRegNumber;
         this.companyPhoneNumber = companyPhoneNumber;
         this.city = city;
         this.lga = lga;
@@ -52,12 +62,12 @@ public class ClientCompany {
     }
 
     // Getters and Setters
-    public Long getClientCompanyId() {
-        return clientCompanyId;
+    public Long getId() {
+        return id;
     }
 
-    public void setClientCompanyId(Long clientCompanyId) {
-        this.clientCompanyId = clientCompanyId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCompanyName() {
@@ -84,6 +94,10 @@ public class ClientCompany {
         this.companyEmail = companyEmail;
     }
 
+    public String getCompanyRegNumber() { return companyRegNumber; }
+
+    public void setCompanyRegNumber(String companyRegNumber) { this.companyRegNumber = companyRegNumber; }
+
     public String getCity() {
         return city;
     }
@@ -103,6 +117,7 @@ public class ClientCompany {
     public String getState() {
         return state;
     }
+
     public void setState(String state) {
         this.state = state;
     }
@@ -123,14 +138,16 @@ public class ClientCompany {
         this.client = client;
     }
 
-      // toString
+
+    // toString
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ClientCompany{");
-        sb.append("id=").append(clientCompanyId);
+        sb.append("id=").append(id);
         sb.append(", companyName='").append(companyName).append('\'');
         sb.append(", companyAddress='").append(companyAddress).append('\'');
         sb.append(", companyEmail='").append(companyEmail).append('\'');
+        sb.append(", companyRegNumber='").append(companyRegNumber).append('\'');
         sb.append(", companyPhoneNumber='").append(companyPhoneNumber).append('\'');
         sb.append(", city='").append(city).append('\'');
         sb.append(", lga='").append(lga).append('\'');

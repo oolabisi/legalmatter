@@ -1,14 +1,15 @@
 package legalmanagement.data.entity;
 
-import org.hibernate.annotations.NaturalId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+
 import javax.validation.constraints.Email;
+
 
 
 @Entity
@@ -16,11 +17,10 @@ import javax.validation.constraints.Email;
 public class LawFirm {
 
       @Id
-      @Column
       @GeneratedValue(strategy= GenerationType.IDENTITY)
       private Long lawFirmId;
 
-      private int lawFirmRegNumber;
+      private String lawFirmRegNumber;
 
       private String lawFirmName;
 
@@ -38,8 +38,10 @@ public class LawFirm {
 
       private String state;
 
-      //@OneToMany(mappedBy="lawFirm")
-      //private List<Attorney> attorney;
+      @ManyToOne(fetch = FetchType.EAGER)
+      @OnDelete(action = OnDeleteAction.CASCADE)
+      @JsonIgnore
+      private Attorney attorney;
 
 
       // Class Constructor
@@ -47,7 +49,7 @@ public class LawFirm {
       public LawFirm() { }
 
       public LawFirm(String lawFirmName, String lawFirmEmail, String lawFirmPhoneNumber,
-                     String lawFirmAddress, String city, String lga, String state, int lawFirmRegNumber) {
+                     String lawFirmAddress, String city, String lga, String state, String lawFirmRegNumber) {
             this.lawFirmName = lawFirmName;
             this.lawFirmEmail = lawFirmEmail;
             this.lawFirmPhoneNumber = lawFirmPhoneNumber;
@@ -68,11 +70,11 @@ public class LawFirm {
             this.lawFirmId = lawFirmId;
       }
 
-      public int getLawFirmRegNumber() {
+      public String getLawFirmRegNumber() {
             return lawFirmRegNumber;
       }
 
-      public void setLawFirmRegNumber(int lawFirmRegNumber) {
+      public void setLawFirmRegNumber(String lawFirmRegNumber) {
             this.lawFirmRegNumber = lawFirmRegNumber;
       }
 

@@ -2,18 +2,24 @@ package legalmanagement.rest;
 
 import legalmanagement.data.Repository.ClientRepository;
 import legalmanagement.data.entity.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/legalmanagement")
+@RequestMapping
 public class ClientController {
-    private ClientRepository clientService;
+
+    @Autowired
+    ClientRepository clientService;
 
     // class constructor
-
     public ClientController(ClientRepository theClientService){
         clientService = theClientService;
     }
@@ -21,7 +27,8 @@ public class ClientController {
     // exposing and returning all the Client on the List
 
     @GetMapping("/clients")
-    public List<Client> findAll(){
+    public List<Client> getAllClients() {
+
         return clientService.findAll();
     }
 
@@ -41,36 +48,46 @@ public class ClientController {
     // method to add an Client ()
 
     @PostMapping("/clients")
-    public Client add(@RequestBody Client theClient){
+    public Client add(@Valid @RequestBody Client theClient){
 
         //(Just incase an Id is passed in json set Id to 0,
         // this is to force a save of new item instead of update)
 //        theClient.setClientId(0);
 
         clientService.save(theClient);
-
         return theClient;
     }
 
     // method to update an existing Client
     @PutMapping("/clients")
-    public Client updateClient(@RequestBody Client theClient){
+    public Client updateClient(@PathVariable Long clientId, @Valid @RequestBody Client theClient){
 
-        clientService.save(theClient);
+        //clientService.save(theClient);
 
-        return theClient;
+        return clientService.findById(clientId).map(client -> {
+            client.setFirstName(theClient.getFirstName());
+            return clientService.save(client);
+        })
+                .orElseThrow(()-> new ResourceNotFoundException("ClientId" + clientId + "not found"));
     }
 
     // method to delete a Client
     @DeleteMapping("/clients/{clientId}")
-    public String deleteClient(@PathVariable Long clientId){
-        Optional<Client> tempClient  = clientService.findById(clientId);
+    public ResponseEntity<?> deleteClient(@PathVariable Long clientId){
+       return clientService.findById(clientId).map(client -> {
+           clientService.delete(client);
+           return ResponseEntity.ok() .build();
+       })
+               .orElseThrow(()-> new ResourceNotFoundException("ClientId" + clientId + "not found"));
+
+
+        //Optional<Client> tempClient  = clientService.findById(clientId);
 
         // throw an exception...
-        if (tempClient == null){
+        /*if (tempClient == null){
             throw new RuntimeException("Client id not found : " + clientId);
         }
         clientService.deleteById(clientId);
-        return "Deleted client id " + clientId;
+        return "Deleted client id " + clientId;*/
     }
 }

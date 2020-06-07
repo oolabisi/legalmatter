@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 
 <head>
-
         <meta charset="utf-8" />
         <meta content="IE=edge" http-equiv="X-UA-Compatible" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -19,11 +18,21 @@
         <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
         <!-- Bootstrap Validator plugin -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
-
-
+    <style>
+                .footer {
+                    position: fixed;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    background-color: blue;
+                    color: white;
+                    height: 50px;
+                    text-align: center;
+                }
+</style>
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg" >
 
  <div class="container middle-box text-center loginscreen animated fadeInDown">
 
@@ -108,7 +117,8 @@
                <div class="form-group input-group has-feedback">
 
                   <span class="input-group-addon">
-                       <span class="glyphicon glyphicon-envelope"></span>
+<!--                       <span class="glyphicon glyphicon-envelope"></span>-->
+                      <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                   </span>
 
                       <input class="form-control" data-error="This email address is invalid" placeholder="Email Address" required
@@ -137,6 +147,8 @@
        </div>
 
    </form>
+
+     <div class="footer animated">LEGAL MATTERS</div>
 
  </div>
 

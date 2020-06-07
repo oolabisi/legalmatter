@@ -1,19 +1,17 @@
 package legalmanagement.data.entity;
 
 import org.hibernate.annotations.NaturalId;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "attorney", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}),
-@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "attorney",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"username"}), @UniqueConstraint(columnNames = {"email"})})
 public class Attorney {
 
     @Id
@@ -55,8 +53,8 @@ public class Attorney {
     private String verificationToken;
 
     @ManyToMany(cascade = CascadeType.MERGE)    //(fetch = FetchType.LAZY)
-    @JoinTable(name = "attorney_roles", joinColumns = {@JoinColumn(name = "attorney_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    @JoinTable(name = "attorney_role", joinColumns = {@JoinColumn(name = "attorney_id")},
+            inverseJoinColumns= {@JoinColumn(name = "role_id")})
     private Set<Role> roles; // private List<Role> role;
 
 
@@ -64,20 +62,18 @@ public class Attorney {
 
     public Attorney() { }
 
-    public Attorney(String email, String password, Set grantedAuthorities) { }
-
-    public Attorney(String firstName, String lastName, String username, String email, String password, String title,
-                    String otherName) {  }
+    //public Attorney(String email, String password, Set grantedAuthorities) { }
 
     public Attorney(String firstName, String lastName, String otherName, String title, String email, String password,
                     String phoneNumber, String enrollmentNumber, String enrollmentYear, String callToBarCertNumber,
-                    String nationality, String username, boolean enabled, String verificationToken) { //Set<Role> roles
+                    String nationality, String username, boolean enabled, String verificationToken, Set<Role> roles) { //
         this.firstName = firstName;
         this.lastName = lastName;
         this.otherName = otherName;
         this.username = username;
         this.title = title;
         this.email = email;
+        this.roles = roles;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.enrollmentNumber = enrollmentNumber;
@@ -88,11 +84,7 @@ public class Attorney {
         this.verificationToken = verificationToken;
     }
 
-    public Collection<GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    // Setters and Getters of Class Attribute
+   // Setters and Getters
 
     public Long getAttorneyId() { return attorneyId; }
 
@@ -160,7 +152,6 @@ public class Attorney {
 
 
     // toString
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Attorney{");
@@ -183,5 +174,4 @@ public class Attorney {
         sb.append('}');
         return sb.toString();
     }
-
 }
